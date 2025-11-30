@@ -6,12 +6,12 @@ class Rgrc < Formula
 
   on_arm do
     url "https://github.com/lazywalker/rgrc/releases/download/v#{version}/rgrc-aarch64-apple-darwin.tar.gz"
-    sha256 "a7038405e6e5ace5f8e8f15c140baa7a17ff20cec44de2b1de2fd08ac4596c0b"
+    sha256 "61064bf9b3f3c3409a8426b33ef87a94d64502057bfd43ca8a1af8e7dc401833"
   end
 
   on_intel do
     url "https://github.com/lazywalker/rgrc/releases/download/v#{version}/rgrc-x86_64-apple-darwin.tar.gz"
-    sha256 "7b5a29842e6c6dc77162b89470a4c6997663277409ed0a8f2dede50b96a37744"
+    sha256 "c51fb4b9754459610490ec8c36c1de87641b43bf42b1a1d097237ba1347fece2"
   end
 
   def install
