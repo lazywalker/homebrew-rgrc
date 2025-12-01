@@ -1,21 +1,22 @@
 class Rgrc < Formula
   desc "Rusty Generic Colouriser - just like grc but fast"
   homepage "https://github.com/lazywalker/rgrc"
-  version "0.5.1"
+  version "0.6.1"
   license "MIT"
 
   on_arm do
     url "https://github.com/lazywalker/rgrc/releases/download/v#{version}/rgrc-aarch64-apple-darwin.tar.gz"
-    sha256 "61064bf9b3f3c3409a8426b33ef87a94d64502057bfd43ca8a1af8e7dc401833"
+    sha256 "b21e454cecfe7549d2e44c6ea27e1449a07cbc30b34b96561f664d5c6608d4b6"
   end
 
   on_intel do
     url "https://github.com/lazywalker/rgrc/releases/download/v#{version}/rgrc-x86_64-apple-darwin.tar.gz"
-    sha256 "c51fb4b9754459610490ec8c36c1de87641b43bf42b1a1d097237ba1347fece2"
+    sha256 "3e68f6cfcc34587b47f734bf359f9920c31b8e3863f1f7bd60e7f0efbee573b4"
   end
 
   def install
     bin.install "rgrc"
+    bin.install "rgrv"
     generate_completions_from_executable(bin/"rgrc", "--completions")
   end
 
