@@ -39,7 +39,7 @@ download_and_checksum() {
     local url="$1"
     local filename="$(basename "$url")"
     local tmpfile="/tmp/${filename}"
-    
+
     info "Downloading: $url" >&2
     if curl -fsSL -o "$tmpfile" "$url"; then
         local checksum
@@ -81,6 +81,7 @@ main() {
     GITHUB_REPO="https://github.com/lazywalker/rgrc"
     ARM_URL="${GITHUB_REPO}/releases/download/v${VERSION}/rgrc-aarch64-apple-darwin.tar.gz"
     INTEL_URL="${GITHUB_REPO}/releases/download/v${VERSION}/rgrc-x86_64-apple-darwin.tar.gz"
+    LINUX_URL="${GITHUB_REPO}/releases/download/v${VERSION}/rgrc-x86_64-unknown-linux-gnu.tar.gz"
 
     info "Calculating checksums for version ${VERSION}..."
     echo
@@ -104,6 +105,15 @@ main() {
     info "Intel SHA256: ${INTEL_SHA256}"
     echo
 
+    info "Processing x86_64 (Intel)..."
+    LINUX_SHA256=$(download_and_checksum "$LINUX_URL")
+    if [[ -z "$LINUX_SHA256" ]]; then
+        error "Failed to get Linux checksum"
+        exit 1
+    fi
+    info "Linux SHA256: ${LINUX_SHA256}"
+    echo
+
     # Update formula file
     info "Updating formula file..."
 
@@ -115,6 +125,9 @@ main() {
         if /on_intel/../^  end/
             gsub(/sha256 \"[0-9a-f]{64}\"/, \"sha256 \\\"${INTEL_SHA256}\\\"\")
         end
+        if /on_linux/../^  end/
+            gsub(/sha256 \"[0-9a-f]{64}\"/, \"sha256 \\\"${LINUX_SHA256}\\\"\")
+        end
     " "$FORMULA_FILE"
     rm -f "${FORMULA_FILE}.tmp"
 
@@ -125,6 +138,7 @@ main() {
         info "Changes made:"
         echo "  ARM64:  ${ARM_SHA256}"
         echo "  Intel:  ${INTEL_SHA256}"
+        echo "  Linux:  ${LINUX_SHA256}"
         echo
         info "You can review the changes with: git diff ${FORMULA_FILE}"
     else
