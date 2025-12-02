@@ -105,7 +105,7 @@ main() {
     info "Intel SHA256: ${INTEL_SHA256}"
     echo
 
-    info "Processing x86_64 (Intel)..."
+    info "Processing x86_64 (Linux)..."
     LINUX_SHA256=$(download_and_checksum "$LINUX_URL")
     if [[ -z "$LINUX_SHA256" ]]; then
         error "Failed to get Linux checksum"
