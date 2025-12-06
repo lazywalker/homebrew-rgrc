@@ -14,6 +14,11 @@ class Rgrc < Formula
     sha256 "3e68f6cfcc34587b47f734bf359f9920c31b8e3863f1f7bd60e7f0efbee573b4"
   end
 
+  on_linux do
+    url "https://github.com/lazywalker/rgrc/releases/download/v#{version}/rgrc-x86_64-unknown-linux-gnu.tar.gz"
+    sha256 "e218615bc35f2b141a930750b0d2c80904676c44aa284fa6290e10fd08d7761d"
+  end
+
   def install
     bin.install "rgrc"
     bin.install "rgrv"
